@@ -1,0 +1,6 @@
+Flask
+mysql-connector-python
+requests
+beautifulsoup4
+APScheduler
+Werkzeug

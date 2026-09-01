@@ -1,0 +1,1418 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Register | PriceLens</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #070914;
+    color: white;
+}
+
+
+/* =========================
+   MAIN PAGE
+========================= */
+
+.register-page {
+
+    min-height: 100vh;
+
+    position: relative;
+
+    overflow: hidden;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 35px 20px;
+
+    background:
+        radial-gradient(
+            circle at 10% 20%,
+            rgba(124, 58, 237, .35),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 90% 15%,
+            rgba(6, 182, 212, .28),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 80% 90%,
+            rgba(236, 72, 153, .22),
+            transparent 30%
+        ),
+        #070914;
+}
+
+
+/* =========================
+   GRID
+========================= */
+
+.grid-bg {
+
+    position: absolute;
+
+    inset: 0;
+
+    opacity: .07;
+
+    background-image:
+
+        linear-gradient(
+            rgba(255,255,255,.2) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.2) 1px,
+            transparent 1px
+        );
+
+    background-size: 55px 55px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black,
+            transparent
+        );
+}
+
+
+/* =========================
+   GLOW ORBS
+========================= */
+
+.orb {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    filter: blur(8px);
+}
+
+.orb-1 {
+
+    width: 280px;
+    height: 280px;
+
+    background: rgba(124,58,237,.25);
+
+    top: -120px;
+    left: -80px;
+}
+
+.orb-2 {
+
+    width: 250px;
+    height: 250px;
+
+    background: rgba(6,182,212,.20);
+
+    right: -100px;
+    bottom: -80px;
+}
+
+
+/* =========================
+   MAIN CARD
+========================= */
+
+.register-container {
+
+    width: 100%;
+
+    max-width: 1100px;
+
+    min-height: 650px;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    position: relative;
+
+    z-index: 5;
+
+    overflow: hidden;
+
+    border-radius: 30px;
+
+    background: rgba(15,23,42,.62);
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    box-shadow:
+        0 40px 100px rgba(0,0,0,.55);
+
+    backdrop-filter: blur(25px);
+}
+
+
+/* =========================
+   LEFT SIDE
+========================= */
+
+.register-visual {
+
+    padding: 55px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    position: relative;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(124,58,237,.16),
+            rgba(37,99,235,.08),
+            rgba(6,182,212,.08)
+        );
+}
+
+
+/* =========================
+   LOGO
+========================= */
+
+.brand {
+
+    position: absolute;
+
+    top: 35px;
+    left: 45px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    font-size: 25px;
+
+    font-weight: 900;
+}
+
+.brand-mark {
+
+    width: 38px;
+    height: 38px;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #8b5cf6,
+            #2563eb,
+            #06b6d4
+        );
+
+    box-shadow:
+        0 0 25px
+        rgba(99,102,241,.5);
+}
+
+.brand span {
+
+    color: #67e8f9;
+}
+
+
+/* =========================
+   LEFT CONTENT
+========================= */
+
+.visual-content {
+
+    margin-top: 45px;
+}
+
+.visual-content h1 {
+
+    font-size: 45px;
+
+    line-height: 1.1;
+
+    font-weight: 900;
+
+    letter-spacing: -1.5px;
+}
+
+.visual-content h1 span {
+
+    background:
+        linear-gradient(
+            90deg,
+            #a78bfa,
+            #60a5fa,
+            #67e8f9,
+            #f0abfc
+        );
+
+    -webkit-background-clip: text;
+
+    background-clip: text;
+
+    color: transparent;
+}
+
+.visual-content p {
+
+    margin-top: 20px;
+
+    max-width: 420px;
+
+    color: #94a3b8;
+
+    font-size: 14px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================
+   FEATURES
+========================= */
+
+.features {
+
+    margin-top: 35px;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+
+    max-width: 420px;
+}
+
+.feature {
+
+    padding: 15px;
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,255,255,.045);
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+}
+
+.feature-title {
+
+    color: #e2e8f0;
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+.feature-text {
+
+    margin-top: 5px;
+
+    color: #64748b;
+
+    font-size: 9px;
+}
+
+
+/* =========================
+   RIGHT FORM
+========================= */
+
+.register-form-section {
+
+    padding: 50px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.045),
+            rgba(255,255,255,.015)
+        );
+
+    border-left:
+        1px solid
+        rgba(255,255,255,.08);
+}
+
+.form-content {
+
+    width: 100%;
+
+    max-width: 390px;
+}
+
+
+/* =========================
+   HEADING
+========================= */
+
+.form-heading {
+
+    margin-bottom: 25px;
+}
+
+.form-heading h2 {
+
+    font-size: 30px;
+
+    font-weight: 900;
+
+    margin-bottom: 8px;
+}
+
+.form-heading p {
+
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+
+/* =========================
+   INPUT
+========================= */
+
+.form-group {
+
+    margin-bottom: 15px;
+}
+
+.form-group label {
+
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #cbd5e1;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+.input-wrapper {
+
+    position: relative;
+}
+
+.form-group input {
+
+    width: 100%;
+
+    height: 49px;
+
+    padding: 0 43px 0 15px;
+
+    border-radius: 12px;
+
+    outline: none;
+
+    border:
+        1px solid
+        rgba(148,163,184,.18);
+
+    background:
+        rgba(15,23,42,.65);
+
+    color: white;
+
+    font-size: 12px;
+
+    transition: .25s;
+}
+
+.form-group input::placeholder {
+
+    color: #475569;
+}
+
+.form-group input:focus {
+
+    border-color: #6366f1;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(99,102,241,.12);
+}
+
+
+/* =========================
+   EYE BUTTON
+========================= */
+
+.eye-btn {
+
+    position: absolute;
+
+    right: 13px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    border: none;
+
+    background: transparent;
+
+    color: #64748b;
+
+    cursor: pointer;
+
+    font-size: 14px;
+}
+
+.eye-btn:hover {
+
+    color: #67e8f9;
+}
+
+
+/* =========================
+   PASSWORD REQUIREMENTS
+========================= */
+
+.requirements {
+
+    margin-top: -5px;
+
+    margin-bottom: 18px;
+
+    padding: 12px;
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border:
+        1px solid
+        rgba(255,255,255,.06);
+}
+
+.requirements-title {
+
+    color: #94a3b8;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    margin-bottom: 7px;
+}
+
+.requirement {
+
+    color: #64748b;
+
+    font-size: 9px;
+
+    margin: 4px 0;
+
+    transition: .2s;
+}
+
+.requirement.valid {
+
+    color: #4ade80;
+}
+
+.requirement.invalid {
+
+    color: #f87171;
+}
+
+
+/* =========================
+   ERROR MESSAGE
+========================= */
+
+.password-error {
+
+    display: none;
+
+    margin-top: 10px;
+
+    margin-bottom: 12px;
+
+    padding: 10px 12px;
+
+    border-radius: 10px;
+
+    background:
+        rgba(239,68,68,.08);
+
+    border:
+        1px solid
+        rgba(239,68,68,.25);
+
+    color: #f87171;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+}
+
+.password-error.show {
+
+    display: block;
+}
+
+
+/* =========================
+   SUCCESS MESSAGE
+========================= */
+
+.password-success {
+
+    display: none;
+
+    margin-top: 10px;
+
+    margin-bottom: 12px;
+
+    padding: 10px 12px;
+
+    border-radius: 10px;
+
+    background:
+        rgba(34,197,94,.08);
+
+    border:
+        1px solid
+        rgba(34,197,94,.25);
+
+    color: #4ade80;
+
+    font-size: 10px;
+}
+
+
+/* =========================
+   REGISTER BUTTON
+========================= */
+
+.register-btn {
+
+    width: 100%;
+
+    height: 50px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    color: white;
+
+    font-size: 12px;
+
+    font-weight: 900;
+
+    letter-spacing: .6px;
+
+    background:
+        linear-gradient(
+            100deg,
+            #7c3aed,
+            #4f46e5,
+            #2563eb,
+            #0891b2
+        );
+
+    box-shadow:
+        0 12px 30px
+        rgba(79,70,229,.25);
+
+    transition: .3s;
+}
+
+.register-btn:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 18px 40px
+        rgba(79,70,229,.4);
+}
+
+
+/* =========================
+   LOGIN LINK
+========================= */
+
+.login-text {
+
+    text-align: center;
+
+    margin-top: 20px;
+
+    color: #64748b;
+
+    font-size: 11px;
+}
+
+.login-text a {
+
+    color: #818cf8;
+
+    text-decoration: none;
+
+    font-weight: 800;
+}
+
+.login-text a:hover {
+
+    color: #67e8f9;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 850px) {
+
+    .register-container {
+
+        grid-template-columns: 1fr;
+
+        max-width: 600px;
+    }
+
+    .register-visual {
+
+        min-height: 450px;
+    }
+
+    .register-form-section {
+
+        border-left: none;
+
+        border-top:
+            1px solid
+            rgba(255,255,255,.08);
+    }
+}
+
+
+@media (max-width: 520px) {
+
+    .register-page {
+
+        padding: 15px;
+    }
+
+    .register-visual {
+
+        padding: 35px 25px;
+    }
+
+    .brand {
+
+        left: 25px;
+    }
+
+    .visual-content h1 {
+
+        font-size: 35px;
+    }
+
+    .register-form-section {
+
+        padding: 35px 25px;
+    }
+
+    .features {
+
+        grid-template-columns: 1fr;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="register-page">
+
+    <div class="grid-bg"></div>
+
+    <div class="orb orb-1"></div>
+
+    <div class="orb orb-2"></div>
+
+
+    <div class="register-container">
+
+
+        <!-- =========================
+             LEFT SIDE
+        ========================== -->
+
+        <section class="register-visual">
+
+
+            <div class="brand">
+
+                <div class="brand-mark">
+                    P
+                </div>
+
+                Price<span>Lens</span>
+
+            </div>
+
+
+            <div class="visual-content">
+
+
+                <h1>
+
+                    Track smarter.<br>
+
+                    <span>Save more.</span>
+
+                </h1>
+
+
+                <p>
+
+                    Create your PriceLens account and start
+                    monitoring product prices, discovering
+                    better deals and receiving smart alerts.
+
+                </p>
+
+
+                <div class="features">
+
+
+                    <div class="feature">
+
+                        <div class="feature-title">
+                            PRICE MONITORING
+                        </div>
+
+                        <div class="feature-text">
+                            Automatically track product prices.
+                        </div>
+
+                    </div>
+
+
+                    <div class="feature">
+
+                        <div class="feature-title">
+                            SMART ALERTS
+                        </div>
+
+                        <div class="feature-text">
+                            Get notified when prices drop.
+                        </div>
+
+                    </div>
+
+
+                    <div class="feature">
+
+                        <div class="feature-title">
+                            PRICE ANALYTICS
+                        </div>
+
+                        <div class="feature-text">
+                            Understand price trends easily.
+                        </div>
+
+                    </div>
+
+
+                    <div class="feature">
+
+                        <div class="feature-title">
+                            SECURE ACCOUNT
+                        </div>
+
+                        <div class="feature-text">
+                            Your account stays protected.
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =========================
+             RIGHT SIDE
+        ========================== -->
+
+        <section class="register-form-section">
+
+
+            <div class="form-content">
+
+
+                <div class="form-heading">
+
+                    <h2>
+                        Create Account
+                    </h2>
+
+                    <p>
+                        Join PriceLens and start tracking smarter.
+                    </p>
+
+                </div>
+
+
+                <form
+                    method="POST"
+                    action="/register"
+                    onsubmit="return validatePassword()"
+                >
+
+
+                    <!-- NAME -->
+
+                    <div class="form-group">
+
+                        <label for="name">
+                            FULL NAME
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Enter your full name"
+                            autocomplete="name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            EMAIL ADDRESS
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="you@example.com"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            PASSWORD
+                        </label>
+
+
+                        <div class="input-wrapper">
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Create a strong password"
+                                autocomplete="new-password"
+                                required
+                                oninput="checkPassword()"
+                            >
+
+
+                            <button
+                                type="button"
+                                class="eye-btn"
+                                onclick="togglePassword('password', this)"
+                            >
+                                ◉
+                            </button>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- PASSWORD REQUIREMENTS -->
+
+                    <div class="requirements">
+
+
+                        <div class="requirements-title">
+                            PASSWORD REQUIREMENTS
+                        </div>
+
+
+                        <div
+                            class="requirement"
+                            id="length"
+                        >
+                            ✗ 6+ characters
+                        </div>
+
+
+                        <div
+                            class="requirement"
+                            id="letter"
+                        >
+                            ✗ At least 1 letter
+                        </div>
+
+
+                        <div
+                            class="requirement"
+                            id="number"
+                        >
+                            ✗ At least 1 number
+                        </div>
+
+
+                        <div
+                            class="requirement"
+                            id="special"
+                        >
+                            ✗ At least 1 special symbol
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- CONFIRM PASSWORD -->
+
+                    <div class="form-group">
+
+                        <label for="confirm_password">
+                            CONFIRM PASSWORD
+                        </label>
+
+
+                        <div class="input-wrapper">
+
+                            <input
+                                type="password"
+                                id="confirm_password"
+                                name="confirm_password"
+                                placeholder="Re-enter your password"
+                                autocomplete="new-password"
+                                required
+                                oninput="checkConfirmPassword()"
+                            >
+
+
+                            <button
+                                type="button"
+                                class="eye-btn"
+                                onclick="togglePassword('confirm_password', this)"
+                            >
+                                ◉
+                            </button>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- ERROR -->
+
+                    <div
+                        id="password-error"
+                        class="password-error"
+                    ></div>
+
+
+                    <!-- SUCCESS -->
+
+                    <div
+                        id="password-success"
+                        class="password-success"
+                    >
+                        ✓ Passwords match and password is valid.
+                    </div>
+
+
+                    <!-- BUTTON -->
+
+                    <button
+                        type="submit"
+                        class="register-btn"
+                    >
+                        CREATE ACCOUNT
+                    </button>
+
+
+                </form>
+
+
+                <div class="login-text">
+
+                    Already have an account?
+
+                    <a href="/login">
+                        Sign In
+                    </a>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+
+/* =========================
+   SHOW / HIDE PASSWORD
+========================= */
+
+function togglePassword(id, button) {
+
+    const input =
+        document.getElementById(id);
+
+
+    if (input.type === "password") {
+
+        input.type = "text";
+
+        button.textContent = "○";
+
+    } else {
+
+        input.type = "password";
+
+        button.textContent = "◉";
+
+    }
+
+}
+
+
+/* =========================
+   PASSWORD CHECK
+========================= */
+
+function checkPassword() {
+
+    const password =
+        document.getElementById("password").value;
+
+
+    const length =
+        document.getElementById("length");
+
+    const letter =
+        document.getElementById("letter");
+
+    const number =
+        document.getElementById("number");
+
+    const special =
+        document.getElementById("special");
+
+
+    /* Length */
+
+    if (password.length >= 6) {
+
+        length.classList.add("valid");
+
+        length.classList.remove("invalid");
+
+        length.textContent =
+            "✓ 6+ characters";
+
+    } else {
+
+        length.classList.remove("valid");
+
+        length.classList.add("invalid");
+
+        length.textContent =
+            "✗ 6+ characters";
+
+    }
+
+
+    /* Letter */
+
+    if (/[A-Za-z]/.test(password)) {
+
+        letter.classList.add("valid");
+
+        letter.classList.remove("invalid");
+
+        letter.textContent =
+            "✓ At least 1 letter";
+
+    } else {
+
+        letter.classList.remove("valid");
+
+        letter.classList.add("invalid");
+
+        letter.textContent =
+            "✗ At least 1 letter";
+
+    }
+
+
+    /* Number */
+
+    if (/[0-9]/.test(password)) {
+
+        number.classList.add("valid");
+
+        number.classList.remove("invalid");
+
+        number.textContent =
+            "✓ At least 1 number";
+
+    } else {
+
+        number.classList.remove("valid");
+
+        number.classList.add("invalid");
+
+        number.textContent =
+            "✗ At least 1 number";
+
+    }
+
+
+    /* Special symbol */
+
+    if (/[^A-Za-z0-9]/.test(password)) {
+
+        special.classList.add("valid");
+
+        special.classList.remove("invalid");
+
+        special.textContent =
+            "✓ At least 1 special symbol";
+
+    } else {
+
+        special.classList.remove("valid");
+
+        special.classList.add("invalid");
+
+        special.textContent =
+            "✗ At least 1 special symbol";
+
+    }
+
+
+    checkConfirmPassword();
+
+}
+
+
+/* =========================
+   CONFIRM PASSWORD CHECK
+========================= */
+
+function checkConfirmPassword() {
+
+    const password =
+        document.getElementById("password").value;
+
+    const confirmPassword =
+        document.getElementById("confirm_password").value;
+
+    const errorBox =
+        document.getElementById("password-error");
+
+    const successBox =
+        document.getElementById("password-success");
+
+
+    if (confirmPassword === "") {
+
+        errorBox.classList.remove("show");
+
+        successBox.style.display = "none";
+
+        return;
+
+    }
+
+
+    if (password !== confirmPassword) {
+
+        errorBox.textContent =
+            "Passwords do not match.";
+
+        errorBox.classList.add("show");
+
+        successBox.style.display = "none";
+
+    } else {
+
+        errorBox.classList.remove("show");
+
+        successBox.style.display = "block";
+
+    }
+
+}
+
+
+/* =========================
+   FINAL VALIDATION
+========================= */
+
+function validatePassword() {
+
+    const password =
+        document.getElementById("password").value;
+
+    const confirmPassword =
+        document.getElementById("confirm_password").value;
+
+    const errorBox =
+        document.getElementById("password-error");
+
+
+    const validPassword =
+
+        password.length >= 6 &&
+
+        /[A-Za-z]/.test(password) &&
+
+        /[0-9]/.test(password) &&
+
+        /[^A-Za-z0-9]/.test(password);
+
+
+    /* Invalid password */
+
+    if (!validPassword) {
+
+        errorBox.textContent =
+            "Password must contain 6+ characters, at least 1 letter, 1 number and 1 special symbol.";
+
+        errorBox.classList.add("show");
+
+        return false;
+
+    }
+
+
+    /* Password mismatch */
+
+    if (password !== confirmPassword) {
+
+        errorBox.textContent =
+            "Passwords do not match.";
+
+        errorBox.classList.add("show");
+
+        return false;
+
+    }
+
+
+    /* Everything valid */
+
+    errorBox.classList.remove("show");
+
+    return true;
+
+}
+
+</script>
+
+
+</body>
+
+</html>
+

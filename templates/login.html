@@ -1,0 +1,1192 @@
+
+{% extends "base.html" %}
+
+{% block title %}Login | PriceLens{% endblock %}
+
+{% block content %}
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #070914;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* =========================
+   MAIN PAGE
+========================= */
+
+.login-page {
+    min-height: 92vh;
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px 25px;
+
+    background:
+        radial-gradient(
+            circle at 10% 20%,
+            rgba(124, 58, 237, 0.35),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 90% 15%,
+            rgba(6, 182, 212, 0.28),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 80% 90%,
+            rgba(236, 72, 153, 0.22),
+            transparent 30%
+        ),
+        #070914;
+}
+
+
+/* =========================
+   GLOWING ORBS
+========================= */
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(5px);
+    pointer-events: none;
+}
+
+.orb-1 {
+    width: 300px;
+    height: 300px;
+    background: rgba(124, 58, 237, 0.25);
+    top: -130px;
+    left: -80px;
+}
+
+.orb-2 {
+    width: 260px;
+    height: 260px;
+    background: rgba(6, 182, 212, 0.20);
+    right: -100px;
+    bottom: -80px;
+}
+
+.orb-3 {
+    width: 120px;
+    height: 120px;
+    background: rgba(236, 72, 153, 0.22);
+    right: 25%;
+    top: 8%;
+}
+
+
+/* =========================
+   GRID
+========================= */
+
+.grid-bg {
+    position: absolute;
+    inset: 0;
+
+    opacity: 0.08;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.2) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.2) 1px,
+            transparent 1px
+        );
+
+    background-size: 55px 55px;
+
+    mask-image: linear-gradient(
+        to bottom,
+        black,
+        transparent
+    );
+}
+
+
+/* =========================
+   CONTAINER
+========================= */
+
+.login-container {
+    width: 100%;
+    max-width: 1150px;
+
+    min-height: 650px;
+
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+
+    position: relative;
+    z-index: 5;
+
+    border-radius: 30px;
+
+    overflow: hidden;
+
+    background: rgba(15, 23, 42, 0.58);
+
+    border: 1px solid rgba(255,255,255,.12);
+
+    box-shadow:
+        0 40px 100px rgba(0,0,0,.55),
+        inset 0 1px 0 rgba(255,255,255,.05);
+
+    backdrop-filter: blur(25px);
+}
+
+
+/* =========================
+   LEFT SECTION
+========================= */
+
+.visual-section {
+    padding: 55px;
+
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(124,58,237,.16),
+            rgba(37,99,235,.08),
+            rgba(6,182,212,.08)
+        );
+}
+
+
+/* Brand */
+
+.logo {
+    position: absolute;
+    top: 35px;
+    left: 45px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 25px;
+    font-weight: 800;
+
+    color: #ffffff;
+}
+
+.logo-mark {
+    width: 38px;
+    height: 38px;
+
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    font-weight: 900;
+
+    background:
+        linear-gradient(
+            135deg,
+            #8b5cf6,
+            #2563eb,
+            #06b6d4
+        );
+
+    box-shadow:
+        0 0 25px rgba(99,102,241,.5);
+}
+
+.logo span {
+    color: #67e8f9;
+}
+
+
+/* Heading */
+
+.visual-content {
+    margin-top: 40px;
+}
+
+.visual-content h2 {
+    margin: 0;
+
+    font-size: 48px;
+
+    line-height: 1.08;
+
+    font-weight: 900;
+
+    letter-spacing: -1.5px;
+
+    color: #ffffff;
+}
+
+.visual-content h2 span {
+    background:
+        linear-gradient(
+            90deg,
+            #a78bfa,
+            #60a5fa,
+            #67e8f9,
+            #f0abfc
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+}
+
+.visual-content p {
+    max-width: 480px;
+
+    margin-top: 20px;
+
+    color: #94a3b8;
+
+    font-size: 15px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================
+   ANALYTICS VISUAL
+========================= */
+
+.analytics-card {
+    width: 420px;
+
+    margin-top: 38px;
+
+    padding: 24px;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.09),
+            rgba(255,255,255,.025)
+        );
+
+    border: 1px solid rgba(255,255,255,.10);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.25);
+}
+
+
+/* Product header */
+
+.product-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product-title {
+    color: #e2e8f0;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.status {
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 9px;
+
+    color: #67e8f9;
+
+    border: 1px solid rgba(34,211,238,.25);
+
+    background: rgba(6,182,212,.10);
+}
+
+
+/* Price */
+
+.price-area {
+    margin-top: 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+}
+
+.price {
+    color: white;
+
+    font-size: 30px;
+
+    font-weight: 900;
+}
+
+.price-label {
+    color: #64748b;
+
+    font-size: 10px;
+
+    margin-bottom: 4px;
+}
+
+.drop {
+    color: #4ade80;
+
+    font-size: 12px;
+
+    font-weight: 800;
+}
+
+
+/* Chart */
+
+.chart-area {
+    height: 110px;
+
+    margin-top: 20px;
+
+    position: relative;
+
+    border-bottom: 1px solid rgba(255,255,255,.08);
+
+    overflow: hidden;
+}
+
+.chart-line {
+    position: absolute;
+
+    left: 0;
+    bottom: 15px;
+
+    width: 100%;
+    height: 80px;
+}
+
+.chart-line svg {
+    width: 100%;
+    height: 100%;
+}
+
+.chart-path {
+    fill: none;
+
+    stroke: #67e8f9;
+
+    stroke-width: 3;
+
+    stroke-linecap: round;
+
+    filter:
+        drop-shadow(
+            0 0 8px rgba(103,232,249,.65)
+        );
+}
+
+.chart-area-fill {
+    fill:
+        url(#gradient);
+    opacity: .15;
+}
+
+
+/* Bottom stats */
+
+.analytics-stats {
+    display: grid;
+
+    grid-template-columns: repeat(3,1fr);
+
+    gap: 10px;
+
+    margin-top: 18px;
+}
+
+.stat {
+    padding: 11px;
+
+    border-radius: 12px;
+
+    background: rgba(255,255,255,.04);
+}
+
+.stat small {
+    display: block;
+
+    color: #64748b;
+
+    font-size: 9px;
+}
+
+.stat strong {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #e2e8f0;
+
+    font-size: 12px;
+}
+
+
+/* =========================
+   FLOATING ALERT
+========================= */
+
+.alert {
+    position: absolute;
+
+    right: 40px;
+    bottom: 45px;
+
+    padding: 14px 18px;
+
+    border-radius: 15px;
+
+    background: rgba(15,23,42,.75);
+
+    border: 1px solid rgba(34,211,238,.18);
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.3);
+
+    color: #cbd5e1;
+
+    font-size: 11px;
+}
+
+.alert-line {
+    color: #67e8f9;
+
+    font-weight: 800;
+
+    margin-bottom: 4px;
+}
+
+
+/* =========================
+   RIGHT LOGIN
+========================= */
+
+.form-section {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 55px;
+
+    position: relative;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.045),
+            rgba(255,255,255,.015)
+        );
+
+    border-left: 1px solid rgba(255,255,255,.08);
+}
+
+.form-content {
+    width: 100%;
+    max-width: 370px;
+}
+
+
+/* Login heading */
+
+.form-heading {
+    margin-bottom: 32px;
+}
+
+.form-heading h1 {
+    margin: 0 0 9px;
+
+    color: white;
+
+    font-size: 31px;
+
+    font-weight: 900;
+}
+
+.form-heading p {
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   INPUTS
+========================= */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #cbd5e1;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+
+    left: 15px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #64748b;
+
+    font-size: 15px;
+}
+
+.form-group input {
+    width: 100%;
+
+    height: 53px;
+
+    padding: 0 45px;
+
+    border-radius: 13px;
+
+    border: 1px solid rgba(148,163,184,.18);
+
+    outline: none;
+
+    background: rgba(15,23,42,.65);
+
+    color: #f8fafc;
+
+    font-size: 13px;
+
+    transition: .25s;
+}
+
+.form-group input::placeholder {
+    color: #475569;
+}
+
+.form-group input:focus {
+    border-color: #6366f1;
+
+    background: rgba(15,23,42,.85);
+
+    box-shadow:
+        0 0 0 3px rgba(99,102,241,.12),
+        0 0 25px rgba(99,102,241,.10);
+}
+
+
+/* =========================
+   EYE
+========================= */
+
+.eye-btn {
+    position: absolute;
+
+    right: 14px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    border: none;
+
+    background: transparent;
+
+    color: #64748b;
+
+    cursor: pointer;
+
+    font-size: 14px;
+}
+
+.eye-btn:hover {
+    color: #67e8f9;
+}
+
+
+/* =========================
+   FORGOT
+========================= */
+
+.forgot {
+    text-align: right;
+
+    margin-top: -5px;
+
+    margin-bottom: 24px;
+}
+
+.forgot a {
+    color: #818cf8;
+
+    text-decoration: none;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+.forgot a:hover {
+    color: #67e8f9;
+}
+
+
+/* =========================
+   LOGIN BUTTON
+========================= */
+
+.login-btn {
+    width: 100%;
+
+    height: 53px;
+
+    border: none;
+
+    border-radius: 13px;
+
+    cursor: pointer;
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: 900;
+
+    letter-spacing: .7px;
+
+    background:
+        linear-gradient(
+            100deg,
+            #7c3aed,
+            #4f46e5,
+            #2563eb,
+            #0891b2
+        );
+
+    box-shadow:
+        0 12px 30px rgba(79,70,229,.25);
+
+    transition: .3s;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 18px 40px rgba(79,70,229,.40);
+}
+
+
+/* =========================
+   DIVIDER
+========================= */
+
+.divider {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin: 25px 0;
+
+    color: #475569;
+
+    font-size: 9px;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+
+    height: 1px;
+
+    flex: 1;
+
+    background: rgba(148,163,184,.12);
+}
+
+
+/* =========================
+   REGISTER
+========================= */
+
+.register-text {
+    text-align: center;
+
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+.register-text a {
+    color: #818cf8;
+
+    font-weight: 800;
+
+    text-decoration: none;
+}
+
+.register-text a:hover {
+    color: #67e8f9;
+}
+
+
+/* Security */
+
+.security {
+    margin-top: 25px;
+
+    text-align: center;
+
+    color: #475569;
+
+    font-size: 9px;
+
+    letter-spacing: .2px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+    .login-container {
+        grid-template-columns: 1fr;
+        max-width: 600px;
+    }
+
+    .visual-section {
+        min-height: 520px;
+    }
+
+    .form-section {
+        border-left: none;
+
+        border-top: 1px solid rgba(255,255,255,.08);
+    }
+
+    .alert {
+        display: none;
+    }
+}
+
+@media (max-width: 520px) {
+
+    .login-page {
+        padding: 15px;
+    }
+
+    .visual-section {
+        padding: 35px 25px;
+    }
+
+    .logo {
+        left: 25px;
+    }
+
+    .visual-content h2 {
+        font-size: 36px;
+    }
+
+    .analytics-card {
+        width: 100%;
+    }
+
+    .form-section {
+        padding: 40px 25px;
+    }
+}
+</style>
+
+
+<div class="login-page">
+
+    <div class="grid-bg"></div>
+
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+
+    <div class="login-container">
+
+
+        <!-- =====================
+             LEFT VISUAL
+        ====================== -->
+
+        <section class="visual-section">
+
+
+            <div class="logo">
+
+                <div class="logo-mark">
+                    P
+                </div>
+
+                Price<span>Lens</span>
+
+            </div>
+
+
+            <div class="visual-content">
+
+                <h2>
+                    Smarter prices.<br>
+                    <span>Better decisions.</span>
+                </h2>
+
+                <p>
+                    Monitor product prices, discover the best
+                    deals and get notified when your target
+                    price is reached.
+                </p>
+
+
+                <!-- Analytics card -->
+
+                <div class="analytics-card">
+
+                    <div class="product-header">
+
+                        <div class="product-title">
+                            PRODUCT PRICE MONITOR
+                        </div>
+
+                        <div class="status">
+                            TRACKING
+                        </div>
+
+                    </div>
+
+
+                    <div class="price-area">
+
+                        <div>
+
+                            <div class="price-label">
+                                CURRENT PRICE
+                            </div>
+
+                            <div class="price">
+                                ₹49,999
+                            </div>
+
+                        </div>
+
+                        <div class="drop">
+                            ↓ 19.4%
+                        </div>
+
+                    </div>
+
+
+                    <div class="chart-area">
+
+                        <div class="chart-line">
+
+                            <svg
+                                viewBox="0 0 400 100"
+                                preserveAspectRatio="none"
+                            >
+
+                                <defs>
+
+                                    <linearGradient
+                                        id="gradient"
+                                        x1="0"
+                                        y1="0"
+                                        x2="0"
+                                        y2="1"
+                                    >
+
+                                        <stop
+                                            offset="0%"
+                                            stop-color="#67e8f9"
+                                        />
+
+                                        <stop
+                                            offset="100%"
+                                            stop-color="#7c3aed"
+                                        />
+
+                                    </linearGradient>
+
+                                </defs>
+
+                                <path
+                                    class="chart-area-fill"
+                                    d="M0,75
+                                       C50,65 65,80 100,60
+                                       C140,40 155,70 190,50
+                                       C230,25 250,45 280,30
+                                       C320,10 350,35 400,12
+                                       L400,100 L0,100 Z"
+                                />
+
+                                <path
+                                    class="chart-path"
+                                    d="M0,75
+                                       C50,65 65,80 100,60
+                                       C140,40 155,70 190,50
+                                       C230,25 250,45 280,30
+                                       C320,10 350,35 400,12"
+                                />
+
+                            </svg>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="analytics-stats">
+
+                        <div class="stat">
+                            <small>LOWEST</small>
+                            <strong>₹48,999</strong>
+                        </div>
+
+                        <div class="stat">
+                            <small>AVERAGE</small>
+                            <strong>₹53,450</strong>
+                        </div>
+
+                        <div class="stat">
+                            <small>TARGET</small>
+                            <strong>₹49,999</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="alert">
+
+                <div class="alert-line">
+                    TARGET PRICE REACHED
+                </div>
+
+                Product price dropped to ₹49,999
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =====================
+             LOGIN
+        ====================== -->
+
+        <section class="form-section">
+
+            <div class="form-content">
+
+
+                <div class="form-heading">
+
+                    <h1>
+                        Welcome back
+                    </h1>
+
+                    <p>
+                        Sign in to continue to your PriceLens account.
+                    </p>
+
+                </div>
+
+
+                <form method="POST" action="/login">
+
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            EMAIL ADDRESS
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                @
+                            </span>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="you@example.com"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            PASSWORD
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                •
+                            </span>
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="eye-btn"
+                                onclick="togglePassword()"
+                                aria-label="Show or hide password"
+                            >
+                                ◉
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="forgot">
+
+                        <a href="#">
+                            Forgot Password?
+                        </a>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="login-btn"
+                    >
+                        SIGN IN
+                    </button>
+
+
+                </form>
+
+
+                <div class="divider">
+                    OR
+                </div>
+
+
+                <div class="register-text">
+
+                    Don't have an account?
+
+                    <a href="/register">
+                        Create Account
+                    </a>
+
+                </div>
+
+
+                <div class="security">
+                    SECURE ACCOUNT • PRICELENS
+                </div>
+
+
+            </div>
+
+        </section>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function togglePassword() {
+
+    const password =
+        document.getElementById("password");
+
+    const button =
+        document.querySelector(".eye-btn");
+
+
+    if (password.type === "password") {
+
+        password.type = "text";
+
+        button.textContent = "○";
+
+    } else {
+
+        password.type = "password";
+
+        button.textContent = "◉";
+
+    }
+
+}
+
+</script>
+
+{% endblock %}
+

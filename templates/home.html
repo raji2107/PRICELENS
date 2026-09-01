@@ -1,0 +1,1526 @@
+{% extends "base.html" %}
+
+{% block title %}PriceLens - Smart Price Monitoring{% endblock %}
+
+{% block content %}
+
+<style>
+
+    /* =========================================
+       GLOBAL HOME PAGE
+    ========================================= */
+
+    .home-page {
+        width: 100%;
+    }
+
+
+    /* =========================================
+       HERO
+    ========================================= */
+
+    .hero-section {
+        min-height: 610px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        gap: 70px;
+
+        padding: 70px 20px 60px;
+
+        position: relative;
+    }
+
+
+    .hero-section::before {
+        content: "";
+
+        position: absolute;
+
+        width: 420px;
+        height: 420px;
+
+        top: 20px;
+        right: 100px;
+
+        background: #2563eb;
+
+        opacity: .08;
+
+        filter: blur(100px);
+
+        border-radius: 50%;
+
+        pointer-events: none;
+    }
+
+
+    .hero-content {
+        flex: 1;
+
+        max-width: 680px;
+
+        position: relative;
+
+        z-index: 2;
+    }
+
+
+    .hero-label {
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 9px;
+
+        padding: 9px 16px;
+
+        border-radius: 30px;
+
+        background: rgba(99,102,241,.10);
+
+        border: 1px solid rgba(129,140,248,.25);
+
+        color: #a5b4fc;
+
+        font-size: 12px;
+
+        font-weight: 800;
+
+        letter-spacing: 1px;
+
+        margin-bottom: 24px;
+    }
+
+
+    .hero-label-dot {
+        width: 7px;
+        height: 7px;
+
+        border-radius: 50%;
+
+        background: #22d3ee;
+
+        box-shadow:
+            0 0 12px rgba(34,211,238,.8);
+    }
+
+
+    .hero-title {
+        font-size: clamp(45px, 6vw, 76px);
+
+        line-height: 1.02;
+
+        font-weight: 900;
+
+        letter-spacing: -2px;
+
+        margin-bottom: 25px;
+    }
+
+
+    .hero-title .gradient-text {
+        background:
+            linear-gradient(
+                90deg,
+                #a78bfa,
+                #60a5fa,
+                #22d3ee
+            );
+
+        -webkit-background-clip: text;
+
+        -webkit-text-fill-color: transparent;
+    }
+
+
+    .hero-description {
+        max-width: 620px;
+
+        color: #94a3b8;
+
+        font-size: 17px;
+
+        line-height: 1.8;
+
+        margin-bottom: 34px;
+    }
+
+
+    /* =========================================
+       HERO BUTTONS
+    ========================================= */
+
+    .hero-actions {
+        display: flex;
+
+        align-items: center;
+
+        gap: 14px;
+
+        flex-wrap: wrap;
+    }
+
+
+    .primary-button,
+    .secondary-button {
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        min-height: 48px;
+
+        padding: 0 23px;
+
+        border-radius: 10px;
+
+        text-decoration: none;
+
+        font-size: 14px;
+
+        font-weight: 800;
+
+        transition: .3s ease;
+    }
+
+
+    .primary-button {
+        color: white;
+
+        background:
+            linear-gradient(
+                135deg,
+                #7c3aed,
+                #2563eb
+            );
+
+        box-shadow:
+            0 12px 30px rgba(37,99,235,.25);
+    }
+
+
+    .primary-button:hover {
+        transform: translateY(-3px);
+
+        box-shadow:
+            0 16px 35px rgba(37,99,235,.38);
+    }
+
+
+    .secondary-button {
+        color: #c4b5fd;
+
+        border: 1px solid rgba(139,92,246,.3);
+
+        background: rgba(139,92,246,.06);
+    }
+
+
+    .secondary-button:hover {
+        transform: translateY(-3px);
+
+        background: rgba(139,92,246,.12);
+
+        border-color: rgba(139,92,246,.5);
+    }
+
+
+    /* =========================================
+       HERO DASHBOARD PREVIEW
+    ========================================= */
+
+    .hero-dashboard {
+        width: 500px;
+
+        max-width: 100%;
+
+        padding: 20px;
+
+        border-radius: 22px;
+
+        background:
+            linear-gradient(
+                145deg,
+                rgba(30,41,59,.92),
+                rgba(15,23,42,.94)
+            );
+
+        border: 1px solid rgba(148,163,184,.14);
+
+        box-shadow:
+            0 30px 80px rgba(0,0,0,.5),
+            0 0 45px rgba(37,99,235,.08);
+
+        position: relative;
+
+        z-index: 2;
+    }
+
+
+    .dashboard-top {
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        padding-bottom: 16px;
+
+        border-bottom: 1px solid rgba(255,255,255,.07);
+
+        margin-bottom: 18px;
+    }
+
+
+    .dashboard-title {
+        font-size: 14px;
+
+        font-weight: 800;
+    }
+
+
+    .dashboard-status {
+        font-size: 10px;
+
+        font-weight: 800;
+
+        color: #4ade80;
+
+        padding: 5px 9px;
+
+        border-radius: 20px;
+
+        background: rgba(34,197,94,.09);
+    }
+
+
+    .dashboard-cards {
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 10px;
+
+        margin-bottom: 18px;
+    }
+
+
+    .mini-card {
+        padding: 15px 12px;
+
+        border-radius: 12px;
+
+        background: rgba(255,255,255,.035);
+
+        border: 1px solid rgba(255,255,255,.06);
+    }
+
+
+    .mini-card-label {
+        color: #64748b;
+
+        font-size: 9px;
+
+        font-weight: 700;
+
+        margin-bottom: 7px;
+
+        text-transform: uppercase;
+
+        letter-spacing: .5px;
+    }
+
+
+    .mini-card-value {
+        font-size: 18px;
+
+        font-weight: 900;
+    }
+
+
+    .mini-card-change {
+        color: #4ade80;
+
+        font-size: 9px;
+
+        margin-top: 5px;
+
+        font-weight: 700;
+    }
+
+
+    /* =========================================
+       CHART
+    ========================================= */
+
+    .chart-card {
+        padding: 18px;
+
+        border-radius: 15px;
+
+        background: rgba(255,255,255,.025);
+
+        border: 1px solid rgba(255,255,255,.06);
+    }
+
+
+    .chart-header {
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        margin-bottom: 15px;
+    }
+
+
+    .chart-header strong {
+        font-size: 13px;
+    }
+
+
+    .chart-period {
+        color: #64748b;
+
+        font-size: 10px;
+    }
+
+
+    .chart {
+        height: 135px;
+
+        display: flex;
+
+        align-items: center;
+
+        position: relative;
+
+        overflow: hidden;
+    }
+
+
+    .chart-grid {
+        position: absolute;
+
+        inset: 0;
+
+        background:
+            repeating-linear-gradient(
+                to bottom,
+                transparent 0,
+                transparent 32px,
+                rgba(148,163,184,.07) 33px
+            );
+    }
+
+
+    .chart-svg {
+        width: 100%;
+
+        height: 100%;
+
+        position: relative;
+
+        z-index: 2;
+    }
+
+
+    .chart-line-svg {
+        fill: none;
+
+        stroke: #22d3ee;
+
+        stroke-width: 3;
+
+        stroke-linecap: round;
+
+        stroke-linejoin: round;
+
+        filter:
+            drop-shadow(
+                0 0 7px rgba(34,211,238,.5)
+            );
+    }
+
+
+    .chart-area {
+        fill: url(#chartGradient);
+
+        opacity: .25;
+    }
+
+
+    /* =========================================
+       PRODUCT ROW
+    ========================================= */
+
+    .tracked-product {
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        gap: 15px;
+
+        margin-top: 12px;
+
+        padding: 13px;
+
+        border-radius: 12px;
+
+        background: rgba(255,255,255,.025);
+
+        border: 1px solid rgba(255,255,255,.05);
+    }
+
+
+    .product-info {
+        display: flex;
+
+        align-items: center;
+
+        gap: 11px;
+    }
+
+
+    .product-icon {
+        width: 35px;
+
+        height: 35px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        border-radius: 9px;
+
+        background:
+            linear-gradient(
+                135deg,
+                rgba(124,58,237,.25),
+                rgba(37,99,235,.25)
+            );
+
+        color: #c4b5fd;
+
+        font-size: 15px;
+
+        font-weight: 900;
+    }
+
+
+    .product-info strong {
+        display: block;
+
+        font-size: 11px;
+
+        margin-bottom: 3px;
+    }
+
+
+    .product-info span {
+        color: #64748b;
+
+        font-size: 9px;
+    }
+
+
+    .product-price {
+        text-align: right;
+    }
+
+
+    .product-price strong {
+        display: block;
+
+        font-size: 12px;
+    }
+
+
+    .product-price span {
+        color: #4ade80;
+
+        font-size: 9px;
+
+        font-weight: 700;
+    }
+
+
+    /* =========================================
+       STATS
+    ========================================= */
+
+    .stats-section {
+        display: grid;
+
+        grid-template-columns:
+            repeat(4, 1fr);
+
+        gap: 15px;
+
+        padding: 10px 20px 65px;
+    }
+
+
+    .stat-card {
+        padding: 24px;
+
+        border-radius: 16px;
+
+        background: rgba(255,255,255,.03);
+
+        border: 1px solid rgba(255,255,255,.07);
+
+        transition: .3s;
+    }
+
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+
+        border-color: rgba(96,165,250,.25);
+    }
+
+
+    .stat-label {
+        color: #64748b;
+
+        font-size: 11px;
+
+        font-weight: 700;
+
+        margin-bottom: 10px;
+    }
+
+
+    .stat-value {
+        font-size: 27px;
+
+        font-weight: 900;
+
+        margin-bottom: 6px;
+    }
+
+
+    .stat-description {
+        color: #64748b;
+
+        font-size: 11px;
+    }
+
+
+    .stat-description span {
+        color: #4ade80;
+
+        font-weight: 700;
+    }
+
+
+    /* =========================================
+       SECTION HEADING
+    ========================================= */
+
+    .section-heading {
+        text-align: center;
+
+        padding: 20px 20px 40px;
+    }
+
+
+    .section-heading h2 {
+        font-size: 34px;
+
+        font-weight: 900;
+
+        margin-bottom: 10px;
+    }
+
+
+    .section-heading p {
+        color: #64748b;
+
+        font-size: 14px;
+    }
+
+
+    /* =========================================
+       FEATURE CARDS
+    ========================================= */
+
+    .features-grid {
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 18px;
+
+        padding: 0 20px 70px;
+    }
+
+
+    .feature-card {
+        padding: 30px;
+
+        border-radius: 18px;
+
+        background:
+            linear-gradient(
+                145deg,
+                rgba(255,255,255,.04),
+                rgba(255,255,255,.015)
+            );
+
+        border: 1px solid rgba(255,255,255,.07);
+
+        transition: .3s;
+    }
+
+
+    .feature-card:hover {
+        transform: translateY(-6px);
+
+        border-color:
+            rgba(34,211,238,.25);
+
+        box-shadow:
+            0 20px 45px rgba(0,0,0,.25);
+    }
+
+
+    .feature-number {
+        color: #475569;
+
+        font-size: 11px;
+
+        font-weight: 800;
+
+        margin-bottom: 20px;
+    }
+
+
+    .feature-icon {
+        width: 48px;
+
+        height: 48px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        border-radius: 13px;
+
+        margin-bottom: 20px;
+
+        background:
+            linear-gradient(
+                135deg,
+                rgba(124,58,237,.20),
+                rgba(6,182,212,.12)
+            );
+
+        border: 1px solid rgba(139,92,246,.15);
+
+        color: #a5b4fc;
+
+        font-size: 18px;
+
+        font-weight: 900;
+    }
+
+
+    .feature-card h3 {
+        font-size: 18px;
+
+        margin-bottom: 10px;
+    }
+
+
+    .feature-card p {
+        color: #64748b;
+
+        font-size: 13px;
+
+        line-height: 1.7;
+    }
+
+
+    /* =========================================
+       CTA
+    ========================================= */
+
+    .cta-section {
+        margin: 0 20px 50px;
+
+        padding: 55px 30px;
+
+        text-align: center;
+
+        border-radius: 22px;
+
+        background:
+            linear-gradient(
+                135deg,
+                rgba(79,70,229,.18),
+                rgba(37,99,235,.12),
+                rgba(8,145,178,.10)
+            );
+
+        border: 1px solid rgba(99,102,241,.18);
+
+        position: relative;
+
+        overflow: hidden;
+    }
+
+
+    .cta-section::before {
+        content: "";
+
+        position: absolute;
+
+        width: 300px;
+        height: 300px;
+
+        background: #8b5cf6;
+
+        opacity: .08;
+
+        filter: blur(80px);
+
+        border-radius: 50%;
+
+        left: 50%;
+
+        top: 50%;
+
+        transform: translate(-50%, -50%);
+    }
+
+
+    .cta-section h2 {
+        position: relative;
+
+        font-size: 32px;
+
+        font-weight: 900;
+
+        margin-bottom: 12px;
+    }
+
+
+    .cta-section p {
+        position: relative;
+
+        color: #94a3b8;
+
+        margin-bottom: 25px;
+
+        font-size: 14px;
+    }
+
+
+    .cta-section .primary-button {
+        position: relative;
+    }
+
+
+    /* =========================================
+       FOOTER
+    ========================================= */
+
+    .home-footer {
+        padding: 25px 20px 10px;
+
+        text-align: center;
+
+        border-top: 1px solid rgba(255,255,255,.06);
+
+        color: #475569;
+
+        font-size: 11px;
+    }
+
+
+    /* =========================================
+       RESPONSIVE
+    ========================================= */
+
+    @media (max-width: 1050px) {
+
+        .hero-section {
+            flex-direction: column;
+
+            text-align: center;
+        }
+
+
+        .hero-content {
+            max-width: 750px;
+        }
+
+
+        .hero-description {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+        .hero-actions {
+            justify-content: center;
+        }
+
+
+        .hero-dashboard {
+            width: 650px;
+        }
+
+
+        .stats-section {
+            grid-template-columns:
+                repeat(2, 1fr);
+        }
+
+    }
+
+
+    @media (max-width: 750px) {
+
+        .features-grid {
+            grid-template-columns: 1fr;
+        }
+
+
+        .hero-title {
+            font-size: 48px;
+        }
+
+
+        .hero-dashboard {
+            width: 100%;
+        }
+
+    }
+
+
+    @media (max-width: 520px) {
+
+        .hero-section {
+            padding: 45px 5px;
+        }
+
+
+        .hero-title {
+            font-size: 40px;
+
+            letter-spacing: -1px;
+        }
+
+
+        .hero-description {
+            font-size: 15px;
+        }
+
+
+        .dashboard-cards {
+            grid-template-columns: 1fr;
+        }
+
+
+        .stats-section {
+            grid-template-columns: 1fr;
+        }
+
+
+        .cta-section {
+            margin-left: 5px;
+
+            margin-right: 5px;
+        }
+
+    }
+
+</style>
+
+
+<div class="home-page">
+
+
+    <!-- =====================================
+         HERO SECTION
+    ====================================== -->
+
+    <section class="hero-section">
+
+
+        <div class="hero-content">
+
+
+            <div class="hero-label">
+
+                <span class="hero-label-dot"></span>
+
+                INTELLIGENT PRICE MONITORING
+
+            </div>
+
+
+            <h1 class="hero-title">
+
+                Shop Smarter.
+
+                <br>
+
+                <span class="gradient-text">
+                    Save More.
+                </span>
+
+            </h1>
+
+
+            <p class="hero-description">
+
+                PriceLens is a cloud-based price monitoring
+                platform that tracks your favorite products,
+                analyzes price trends, and alerts you when
+                the perfect deal arrives.
+
+            </p>
+
+
+            <div class="hero-actions">
+
+                <a href="/login" class="primary-button">
+                    Start Monitoring →
+                </a>
+
+
+                <a href="/register" class="secondary-button">
+                    Create Free Account
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================
+             DASHBOARD PREVIEW
+        ================================== -->
+
+        <div class="hero-dashboard">
+
+
+            <div class="dashboard-top">
+
+                <span class="dashboard-title">
+                    Price Intelligence
+                </span>
+
+                <span class="dashboard-status">
+                    SYSTEM ACTIVE
+                </span>
+
+            </div>
+
+
+            <div class="dashboard-cards">
+
+
+                <div class="mini-card">
+
+                    <div class="mini-card-label">
+                        Tracked
+                    </div>
+
+                    <div class="mini-card-value">
+                        12
+                    </div>
+
+                    <div class="mini-card-change">
+                        +3 this week
+                    </div>
+
+                </div>
+
+
+                <div class="mini-card">
+
+                    <div class="mini-card-label">
+                        Savings
+                    </div>
+
+                    <div class="mini-card-value">
+                        ₹8.4K
+                    </div>
+
+                    <div class="mini-card-change">
+                        +12.5%
+                    </div>
+
+                </div>
+
+
+                <div class="mini-card">
+
+                    <div class="mini-card-label">
+                        Alerts
+                    </div>
+
+                    <div class="mini-card-value">
+                        04
+                    </div>
+
+                    <div class="mini-card-change">
+                        Active
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="chart-card">
+
+
+                <div class="chart-header">
+
+                    <strong>
+                        Price Trend
+                    </strong>
+
+                    <span class="chart-period">
+                        Last 30 Days
+                    </span>
+
+                </div>
+
+
+                <div class="chart">
+
+                    <div class="chart-grid"></div>
+
+
+                    <svg
+                        class="chart-svg"
+                        viewBox="0 0 500 135"
+                        preserveAspectRatio="none"
+                    >
+
+                        <defs>
+
+                            <linearGradient
+                                id="chartGradient"
+                                x1="0"
+                                y1="0"
+                                x2="0"
+                                y2="1"
+                            >
+
+                                <stop
+                                    offset="0%"
+                                    stop-color="#22d3ee"
+                                />
+
+                                <stop
+                                    offset="100%"
+                                    stop-color="#22d3ee"
+                                    stop-opacity="0"
+                                />
+
+                            </linearGradient>
+
+                        </defs>
+
+
+                        <path
+                            class="chart-area"
+                            d="
+                            M0,90
+                            C45,85 65,55 105,65
+                            C145,75 165,45 205,52
+                            C245,60 270,30 310,43
+                            C350,56 375,25 410,35
+                            C445,45 465,20 500,25
+                            L500,135
+                            L0,135
+                            Z
+                            "
+                        />
+
+
+                        <path
+                            class="chart-line-svg"
+                            d="
+                            M0,90
+                            C45,85 65,55 105,65
+                            C145,75 165,45 205,52
+                            C245,60 270,30 310,43
+                            C350,56 375,25 410,35
+                            C445,45 465,20 500,25
+                            "
+                        />
+
+                    </svg>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="tracked-product">
+
+
+                <div class="product-info">
+
+                    <div class="product-icon">
+                        L
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Premium Laptop
+                        </strong>
+
+                        <span>
+                            Target ₹49,999
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="product-price">
+
+                    <strong>
+                        ₹55,999
+                    </strong>
+
+                    <span>
+                        ↓ 8.4%
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         STATISTICS
+    ====================================== -->
+
+    <section class="stats-section">
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                PRODUCTS TRACKED
+            </div>
+
+            <div class="stat-value">
+                10K+
+            </div>
+
+            <div class="stat-description">
+                Products monitored by users
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                PRICE CHECKS
+            </div>
+
+            <div class="stat-value">
+                1M+
+            </div>
+
+            <div class="stat-description">
+                Automated checks performed
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                SAVINGS FOUND
+            </div>
+
+            <div class="stat-value">
+                ₹25L+
+            </div>
+
+            <div class="stat-description">
+                Potential savings discovered
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                ALERTS DELIVERED
+            </div>
+
+            <div class="stat-value">
+                50K+
+            </div>
+
+            <div class="stat-description">
+                <span>Real-time</span> notifications
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================
+         FEATURES HEADING
+    ====================================== -->
+
+    <section class="section-heading">
+
+        <h2>
+            Powerful Price Intelligence
+        </h2>
+
+        <p>
+            Everything you need to make smarter purchasing decisions.
+        </p>
+
+    </section>
+
+
+
+    <!-- =====================================
+         FEATURES
+    ====================================== -->
+
+    <section class="features-grid">
+
+
+        <div class="feature-card">
+
+            <div class="feature-number">
+                01
+            </div>
+
+            <div class="feature-icon">
+                +
+            </div>
+
+            <h3>
+                Product Monitoring
+            </h3>
+
+            <p>
+                Add products using their URLs and
+                monitor multiple products from a
+                single intelligent dashboard.
+            </p>
+
+        </div>
+
+
+
+        <div class="feature-card">
+
+            <div class="feature-number">
+                02
+            </div>
+
+            <div class="feature-icon">
+                ↗
+            </div>
+
+            <h3>
+                Price Analytics
+            </h3>
+
+            <p>
+                Understand price history with
+                highest, lowest, average and
+                real-time price trend analysis.
+            </p>
+
+        </div>
+
+
+
+        <div class="feature-card">
+
+            <div class="feature-number">
+                03
+            </div>
+
+            <div class="feature-icon">
+                !
+            </div>
+
+            <h3>
+                Smart Alerts
+            </h3>
+
+            <p>
+                Receive instant email notifications
+                when a product drops in price or
+                reaches your target price.
+            </p>
+
+        </div>
+
+
+
+        <div class="feature-card">
+
+            <div class="feature-number">
+                04
+            </div>
+
+            <div class="feature-icon">
+                AI
+            </div>
+
+            <h3>
+                Price Intelligence
+            </h3>
+
+            <p>
+                Get meaningful insights about
+                price trends, deal quality and
+                potential savings.
+            </p>
+
+        </div>
+
+
+
+        <div class="feature-card">
+
+            <div class="feature-number">
+                05
+            </div>
+
+            <div class="feature-icon">
+                %
+            </div>
+
+            <h3>
+                Smart Deal Score
+            </h3>
+
+            <p>
+                Evaluate products using intelligent
+                price scoring to identify whether
+                a deal is worth buying.
+            </p>
+
+        </div>
+
+
+
+        <div class="feature-card">
+
+            <div class="feature-number">
+                06
+            </div>
+
+            <div class="feature-icon">
+                ☁
+            </div>
+
+            <h3>
+                Cloud Monitoring
+            </h3>
+
+            <p>
+                Automated background monitoring
+                keeps checking product prices even
+                when you are not actively using PriceLens.
+            </p>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================
+         CALL TO ACTION
+    ====================================== -->
+
+    <section class="cta-section">
+
+        <h2>
+            Ready to Shop Smarter?
+        </h2>
+
+        <p>
+            Start tracking products and discover
+            better prices with PriceLens.
+        </p>
+
+
+        <a
+            href="/register"
+            class="primary-button"
+        >
+            Create Your Free Account →
+        </a>
+
+    </section>
+
+
+
+    <!-- =====================================
+         FOOTER
+    ====================================== -->
+
+    <footer class="home-footer">
+
+        © 2026 PriceLens.
+        Cloud-Based E-Commerce Price Monitoring & Alert System.
+
+    </footer>
+
+
+</div>
+
+{% endblock %}

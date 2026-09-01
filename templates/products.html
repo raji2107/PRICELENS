@@ -1,0 +1,877 @@
+{% extends "base.html" %}
+
+{% block title %}PriceLens - Products{% endblock %}
+
+{% block content %}
+
+<style>
+
+.products-page {
+    min-height: calc(100vh - 68px);
+    padding: 25px 20px 50px;
+}
+
+.products-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.products-title {
+    font-size: 28px;
+    font-weight: 900;
+    margin-bottom: 6px;
+}
+
+.products-subtitle {
+    color: #64748b;
+    font-size: 13px;
+}
+
+
+/* ============================= */
+/* TRACK PRODUCT FORM */
+/* ============================= */
+
+.track-product-box {
+    margin-bottom: 22px;
+    padding: 22px;
+    border-radius: 16px;
+    background: rgba(99,102,241,.06);
+    border: 1px solid rgba(99,102,241,.18);
+}
+
+.track-product-title {
+    font-size: 17px;
+    font-weight: 900;
+    margin-bottom: 5px;
+}
+
+.track-product-subtitle {
+    color: #64748b;
+    font-size: 11px;
+    margin-bottom: 18px;
+}
+
+.track-product-form {
+    display: grid;
+    grid-template-columns: 1fr 220px 160px;
+    gap: 12px;
+    align-items: end;
+}
+
+.track-field label {
+    display: block;
+    color: #94a3b8;
+    font-size: 10px;
+    font-weight: 800;
+    margin-bottom: 7px;
+    text-transform: uppercase;
+}
+
+.track-field input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 13px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,.08);
+    outline: none;
+    background: rgba(255,255,255,.035);
+    color: white;
+    font-size: 12px;
+}
+
+.track-field input::placeholder {
+    color: #64748b;
+}
+
+.track-field input:focus {
+    border-color: rgba(34,211,238,.5);
+    box-shadow: 0 0 0 2px rgba(34,211,238,.08);
+}
+
+.track-btn {
+    padding: 12px 15px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #6366f1, #22d3ee);
+    color: white;
+    font-size: 11px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.track-btn:hover {
+    transform: translateY(-2px);
+}
+
+
+/* ============================= */
+/* PRODUCT STATS */
+/* ============================= */
+
+.product-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 22px;
+}
+
+.product-stat-card {
+    padding: 18px;
+    border-radius: 14px;
+    background: rgba(255,255,255,.025);
+    border: 1px solid rgba(255,255,255,.07);
+}
+
+.product-stat-label {
+    color: #64748b;
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    margin-bottom: 8px;
+}
+
+.product-stat-value {
+    font-size: 24px;
+    font-weight: 900;
+}
+
+.green {
+    color: #4ade80;
+}
+
+.cyan {
+    color: #22d3ee;
+}
+
+
+/* ============================= */
+/* SEARCH */
+/* ============================= */
+
+.products-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+.search-box {
+    flex: 1;
+    max-width: 400px;
+}
+
+.search-box input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,.08);
+    outline: none;
+    background: rgba(255,255,255,.035);
+    color: white;
+    font-size: 12px;
+}
+
+.search-box input::placeholder {
+    color: #64748b;
+}
+
+
+/* ============================= */
+/* PRODUCT GRID */
+/* ============================= */
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.product-card {
+    border-radius: 16px;
+    overflow: hidden;
+    background: rgba(255,255,255,.025);
+    border: 1px solid rgba(255,255,255,.07);
+    transition: .3s;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(34,211,238,.25);
+}
+
+
+/* ============================= */
+/* PRODUCT IMAGE */
+/* ============================= */
+
+.product-image {
+    height: 170px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(
+        circle at center,
+        rgba(99,102,241,.16),
+        rgba(7,9,20,.4)
+    );
+}
+
+.product-image img {
+    width: 130px;
+    height: 130px;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+.product-image-box {
+    width: 75px;
+    height: 75px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(99,102,241,.12);
+    border: 1px solid rgba(99,102,241,.2);
+    color: #a5b4fc;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+
+/* ============================= */
+/* PRODUCT CONTENT */
+/* ============================= */
+
+.product-content {
+    padding: 18px;
+}
+
+.product-category {
+    color: #64748b;
+    font-size: 9px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .7px;
+    margin-bottom: 7px;
+}
+
+.product-name {
+    font-size: 15px;
+    font-weight: 900;
+    margin-bottom: 15px;
+    min-height: 38px;
+}
+
+.price-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.current-price {
+    font-size: 21px;
+    font-weight: 900;
+}
+
+.target-price {
+    color: #64748b;
+    font-size: 10px;
+    text-align: right;
+}
+
+.target-price strong {
+    display: block;
+    color: #cbd5e1;
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+
+/* ============================= */
+/* PRODUCT FOOTER */
+/* ============================= */
+
+.product-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding-top: 13px;
+    border-top: 1px solid rgba(255,255,255,.06);
+}
+
+.tracking-status {
+    color: #4ade80;
+    font-size: 9px;
+    font-weight: 900;
+    padding: 5px 9px;
+    border-radius: 20px;
+    background: rgba(34,197,94,.08);
+}
+
+.product-change {
+    color: #22d3ee;
+    font-size: 9px;
+    font-weight: 900;
+}
+
+.view-btn {
+    border: 1px solid rgba(255,255,255,.07);
+    background: rgba(255,255,255,.03);
+    color: #94a3b8;
+    border-radius: 7px;
+    padding: 6px 10px;
+    font-size: 9px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.view-btn:hover {
+    color: white;
+}
+
+
+/* ============================= */
+/* EMPTY STATE */
+/* ============================= */
+
+.empty-products {
+    grid-column: 1 / -1;
+    padding: 60px 20px;
+    text-align: center;
+    border-radius: 16px;
+    background: rgba(255,255,255,.025);
+    border: 1px solid rgba(255,255,255,.07);
+}
+
+.empty-products h3 {
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+.empty-products p {
+    color: #64748b;
+    font-size: 12px;
+}
+
+
+/* ============================= */
+/* RESPONSIVE */
+/* ============================= */
+
+@media (max-width: 1000px) {
+
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .track-product-form {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .track-btn {
+        grid-column: 1 / -1;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .products-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .product-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .products-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-box {
+        max-width: none;
+    }
+
+    .track-product-form {
+        grid-template-columns: 1fr;
+    }
+
+    .track-btn {
+        grid-column: auto;
+    }
+
+}
+
+</style>
+
+
+<div class="products-page">
+
+
+    <!-- ============================= -->
+    <!-- HEADER -->
+    <!-- ============================= -->
+
+    <div class="products-header">
+
+        <div>
+
+            <h1 class="products-title">
+                Products
+            </h1>
+
+            <p class="products-subtitle">
+                Monitor prices and discover the best time to buy.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- TRACK NEW PRODUCT -->
+    <!-- ============================= -->
+
+    <div class="track-product-box">
+
+        <div class="track-product-title">
+            ⚡ Track New Product
+        </div>
+
+        <div class="track-product-subtitle">
+            Add a product URL and set your target price to start monitoring.
+        </div>
+
+
+        <form
+            action="/add-product"
+            method="POST"
+            class="track-product-form"
+        >
+
+            <div class="track-field">
+
+                <label>
+                    Product URL
+                </label>
+
+                <input
+                    type="url"
+                    name="product_url"
+                    placeholder="Paste e-commerce product URL"
+                    required
+                >
+
+            </div>
+
+
+            <div class="track-field">
+
+                <label>
+                    Target Price
+                </label>
+
+                <input
+                    type="number"
+                    name="target_price"
+                    placeholder="₹ Enter target price"
+                    min="1"
+                    step="0.01"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="track-btn"
+            >
+                ⚡ TRACK PRODUCT
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- STATISTICS -->
+    <!-- ============================= -->
+
+    <section class="product-stats">
+
+
+        <div class="product-stat-card">
+
+            <div class="product-stat-label">
+                Total Products
+            </div>
+
+            <div class="product-stat-value">
+                {{ products|length }}
+            </div>
+
+        </div>
+
+
+        <div class="product-stat-card">
+
+            <div class="product-stat-label">
+                Price Drops
+            </div>
+
+            <div class="product-stat-value green">
+
+                {% set drops = namespace(count=0) %}
+
+                {% for product in products %}
+
+                    {% if product.current_price and product.highest_price %}
+
+                        {% if product.current_price|float < product.highest_price|float %}
+
+                            {% set drops.count = drops.count + 1 %}
+
+                        {% endif %}
+
+                    {% endif %}
+
+                {% endfor %}
+
+                {{ drops.count }}
+
+            </div>
+
+        </div>
+
+
+        <div class="product-stat-card">
+
+            <div class="product-stat-label">
+                Products Near Target
+            </div>
+
+            <div class="product-stat-value cyan">
+
+                {% set near = namespace(count=0) %}
+
+                {% for product in products %}
+
+                    {% if product.current_price and product.target_price %}
+
+                        {% set current = product.current_price|float %}
+                        {% set target = product.target_price|float %}
+
+                        {% if current <= target * 1.10 %}
+
+                            {% set near.count = near.count + 1 %}
+
+                        {% endif %}
+
+                    {% endif %}
+
+                {% endfor %}
+
+                {{ near.count }}
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- SEARCH -->
+    <!-- ============================= -->
+
+    <div class="products-toolbar">
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="productSearch"
+                placeholder="Search tracked products..."
+                onkeyup="searchProducts()"
+            >
+
+        </div>
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- PRODUCTS -->
+    <!-- ============================= -->
+
+    <section
+        class="products-grid"
+        id="productsGrid"
+    >
+
+
+        {% if products %}
+
+
+            {% for product in products %}
+
+
+                <div class="product-card">
+
+
+                    <!-- PRODUCT IMAGE -->
+
+                    <div class="product-image">
+
+
+                        {% if product.product_image %}
+
+                            <img
+                                src="{{ product.product_image }}"
+                                alt="{{ product.product_name }}"
+                            >
+
+                        {% else %}
+
+                            <div class="product-image-box">
+
+                                {% if product.product_name %}
+
+                                    {{ product.product_name[:2]|upper }}
+
+                                {% else %}
+
+                                    PR
+
+                                {% endif %}
+
+                            </div>
+
+                        {% endif %}
+
+
+                    </div>
+
+
+                    <!-- PRODUCT CONTENT -->
+
+                    <div class="product-content">
+
+
+                        <div class="product-category">
+                            E-Commerce Product
+                        </div>
+
+
+                        <div class="product-name">
+
+                            {% if product.product_name %}
+
+                                {{ product.product_name }}
+
+                            {% else %}
+
+                                Unknown Product
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <div class="price-row">
+
+
+                            <div class="current-price">
+
+                                {% if product.current_price %}
+
+                                    ₹{{ "{:,.2f}".format(product.current_price|float) }}
+
+                                {% else %}
+
+                                    Price unavailable
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <div class="target-price">
+
+                                Target
+
+                                <strong>
+
+                                    {% if product.target_price %}
+
+                                        ₹{{ "{:,.2f}".format(product.target_price|float) }}
+
+                                    {% else %}
+
+                                        Not set
+
+                                    {% endif %}
+
+                                </strong>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="product-footer">
+
+
+                            <span class="tracking-status">
+                                TRACKING
+                            </span>
+
+
+                            {% if product.current_price and product.target_price %}
+
+
+                                {% if product.current_price|float <= product.target_price|float %}
+
+                                    <span class="product-change">
+                                        TARGET REACHED
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="product-change">
+                                        MONITORING
+                                    </span>
+
+                                {% endif %}
+
+
+                            {% else %}
+
+                                <span class="product-change">
+                                    MONITORING
+                                </span>
+
+                            {% endif %}
+
+
+                            <a
+                                href="{{ product.product_url }}"
+                                target="_blank"
+                                class="view-btn"
+                            >
+                                View
+                            </a>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            {% endfor %}
+
+
+        {% else %}
+
+
+            <div class="empty-products">
+
+                <h3>
+                    No Products Tracked Yet
+                </h3>
+
+                <p>
+                    Add a product to start monitoring its price.
+                </p>
+
+            </div>
+
+
+        {% endif %}
+
+
+    </section>
+
+
+</div>
+
+
+<!-- ============================= -->
+<!-- SEARCH SCRIPT -->
+<!-- ============================= -->
+
+<script>
+
+function searchProducts() {
+
+    const input =
+        document
+        .getElementById("productSearch")
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    const products =
+        document.querySelectorAll(".product-card");
+
+
+    products.forEach(function(product) {
+
+        const nameElement =
+            product.querySelector(".product-name");
+
+
+        if (!nameElement) {
+            return;
+        }
+
+
+        const name =
+            nameElement.textContent
+            .toLowerCase();
+
+
+        if (name.includes(input)) {
+
+            product.style.display = "";
+
+        } else {
+
+            product.style.display = "none";
+
+        }
+
+    });
+
+}
+
+</script>
+
+
+{% endblock %}

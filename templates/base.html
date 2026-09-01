@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>{% block title %}PriceLens{% endblock %}</title>
+
+<style>
+
+    /* ==============================
+       RESET
+    ============================== */
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        width: 100%;
+        min-height: 100%;
+    }
+
+    body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: #070914;
+        color: #f8fafc;
+        overflow-x: hidden;
+    }
+
+
+    /* ==============================
+       NAVBAR
+    ============================== */
+
+    .navbar {
+        width: 100%;
+        min-height: 68px;
+
+        padding: 16px 40px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        background:
+            linear-gradient(
+                135deg,
+                #312e81,
+                #2563eb,
+                #0891b2
+            );
+
+        color: white;
+
+        position: relative;
+        z-index: 100;
+    }
+
+
+    .navbar-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        font-size: 23px;
+        font-weight: 900;
+    }
+
+
+    .navbar-logo-mark {
+        width: 35px;
+        height: 35px;
+
+        border-radius: 10px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background:
+            linear-gradient(
+                135deg,
+                #8b5cf6,
+                #06b6d4
+            );
+
+        color: white;
+
+        font-weight: 900;
+
+        box-shadow:
+            0 0 20px rgba(103,232,249,.4);
+    }
+
+
+    .navbar-subtitle {
+        font-size: 12px;
+        color: rgba(255,255,255,.8);
+    }
+
+
+    /* ==============================
+       NORMAL PAGE CONTAINER
+    ============================== */
+
+    .container {
+        width: 100%;
+        max-width: 1400px;
+
+        margin: 0 auto;
+
+        padding: 35px;
+    }
+
+
+    /* ==============================
+       LOGIN / REGISTER PAGE
+    ============================== */
+
+    body:has(.login-page) {
+        background: #070914;
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+
+
+    body:has(.login-page) .navbar {
+        display: none;
+    }
+
+
+    body:has(.login-page) .container {
+        width: 100%;
+        max-width: none;
+
+        margin: 0;
+        padding: 0;
+
+        min-height: 100vh;
+    }
+
+
+    /* ==============================
+       REGISTER PAGE SUPPORT
+    ============================== */
+
+    body:has(.register-page) {
+        background: #070914;
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+
+
+    body:has(.register-page) .navbar {
+        display: none;
+    }
+
+
+    body:has(.register-page) .container {
+        width: 100%;
+        max-width: none;
+
+        margin: 0;
+        padding: 0;
+
+        min-height: 100vh;
+    }
+
+
+    /* ==============================
+       MOBILE
+    ============================== */
+
+    @media (max-width: 650px) {
+
+        .navbar {
+            padding: 14px 20px;
+        }
+
+        .navbar-subtitle {
+            display: none;
+        }
+
+        .navbar-logo {
+            font-size: 20px;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+    }
+
+</style>
+
+
+</head>
+
+<body>
+
+<!-- PRICE LENS NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="navbar-logo">
+
+        <div class="navbar-logo-mark">
+            P
+        </div>
+
+        <span>
+            PriceLens
+        </span>
+
+    </div>
+
+
+    <div class="navbar-subtitle">
+        Cloud-Based E-Commerce Price Monitoring & Alert System
+    </div>
+
+</nav>
+
+
+<!-- MAIN CONTENT -->
+
+<main class="container">
+
+    {% block content %}
+
+    {% endblock %}
+
+</main>
+
+</body>
+
+</html>

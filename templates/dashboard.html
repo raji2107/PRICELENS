@@ -1,0 +1,945 @@
+{% extends "base.html" %}
+
+{% block title %}PriceLens - Dashboard{% endblock %}
+
+{% block content %}
+
+<style>
+
+.dashboard-page {
+    min-height: calc(100vh - 68px);
+    display: flex;
+    gap: 22px;
+}
+
+.dashboard-sidebar {
+    width: 230px;
+    flex-shrink: 0;
+    padding: 22px 15px;
+    border-right: 1px solid rgba(255,255,255,.06);
+    background: rgba(255,255,255,.015);
+}
+
+.sidebar-section-title {
+    color: #475569;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin: 10px 12px 12px;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 13px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    transition: .25s;
+}
+
+.sidebar-link:hover {
+    color: white;
+    background: rgba(99,102,241,.10);
+}
+
+.sidebar-link.active {
+    color: white;
+    background: linear-gradient(
+        135deg,
+        rgba(124,58,237,.25),
+        rgba(37,99,235,.18)
+    );
+    border: 1px solid rgba(99,102,241,.18);
+}
+
+.sidebar-icon {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: rgba(255,255,255,.04);
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.sidebar-divider {
+    height: 1px;
+    background: rgba(255,255,255,.06);
+    margin: 20px 5px;
+}
+
+.dashboard-main {
+    flex: 1;
+    min-width: 0;
+    padding: 25px 20px 45px;
+}
+
+.dashboard-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+.welcome-title {
+    font-size: 27px;
+    font-weight: 900;
+    margin-bottom: 5px;
+}
+
+.welcome-subtitle {
+    color: #64748b;
+    font-size: 13px;
+}
+
+.dashboard-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.notification-button,
+.profile-button {
+    border: 1px solid rgba(255,255,255,.08);
+    background: rgba(255,255,255,.035);
+    color: #cbd5e1;
+    border-radius: 10px;
+    height: 42px;
+    padding: 0 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.notification-button {
+    width: 42px;
+    justify-content: center;
+    position: relative;
+}
+
+.notification-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #22d3ee;
+    position: absolute;
+    top: 9px;
+    right: 9px;
+}
+
+.profile-avatar {
+    width: 27px;
+    height: 27px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: linear-gradient(135deg,#7c3aed,#2563eb);
+    color: white;
+    font-size: 11px;
+}
+
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.dashboard-stat {
+    padding: 20px;
+    border-radius: 15px;
+    background: linear-gradient(
+        145deg,
+        rgba(255,255,255,.045),
+        rgba(255,255,255,.018)
+    );
+    border: 1px solid rgba(255,255,255,.07);
+}
+
+.stat-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.stat-icon {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: rgba(99,102,241,.12);
+    color: #a5b4fc;
+    font-weight: 900;
+}
+
+.stat-trend {
+    color: #4ade80;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.dashboard-stat-label {
+    color: #64748b;
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+}
+
+.dashboard-stat-value {
+    font-size: 28px;
+    font-weight: 900;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: minmax(0,1.6fr) minmax(280px,.9fr);
+    gap: 18px;
+    margin-bottom: 20px;
+}
+
+.dashboard-card {
+    padding: 22px;
+    border-radius: 16px;
+    background: rgba(255,255,255,.025);
+    border: 1px solid rgba(255,255,255,.07);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.card-header h3 {
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.card-header span {
+    color: #64748b;
+    font-size: 10px;
+}
+
+.analytics-chart {
+    height: 260px;
+    position: relative;
+    overflow: hidden;
+}
+
+.analytics-grid {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 50px,
+        rgba(148,163,184,.06) 51px
+    );
+}
+
+.analytics-svg {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+.analytics-line {
+    fill: none;
+    stroke: #22d3ee;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.analytics-area {
+    fill: url(#dashboardGradient);
+    opacity: .22;
+}
+
+.insight {
+    padding: 16px;
+    border-radius: 12px;
+    background: rgba(255,255,255,.025);
+    border: 1px solid rgba(255,255,255,.06);
+    margin-bottom: 11px;
+}
+
+.insight:last-child {
+    margin-bottom: 0;
+}
+
+.insight-label {
+    color: #64748b;
+    font-size: 10px;
+    margin-bottom: 7px;
+}
+
+.insight-value {
+    font-size: 17px;
+    font-weight: 900;
+    margin-bottom: 5px;
+}
+
+.insight-description {
+    color: #64748b;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.positive {
+    color: #4ade80;
+}
+
+.cyan {
+    color: #22d3ee;
+}
+
+.purple {
+    color: #a78bfa;
+}
+
+.products-card {
+    margin-top: 5px;
+    overflow: hidden;
+}
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.product-table th {
+    text-align: left;
+    padding: 12px 10px;
+    color: #475569;
+    font-size: 9px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.product-table td {
+    padding: 15px 10px;
+    border-bottom: 1px solid rgba(255,255,255,.04);
+    font-size: 11px;
+    color: #cbd5e1;
+}
+
+.table-product {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.table-product-icon {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    background: rgba(99,102,241,.12);
+    color: #a5b4fc;
+    font-weight: 900;
+}
+
+.table-product-name {
+    font-weight: 800;
+    color: #e2e8f0;
+}
+
+.table-product-category {
+    color: #64748b;
+    font-size: 9px;
+    margin-top: 3px;
+}
+
+.price-current {
+    font-weight: 900;
+    color: white;
+}
+
+.price-target {
+    color: #64748b;
+}
+
+.price-drop {
+    color: #4ade80;
+    font-weight: 800;
+}
+
+.tracking-badge {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 20px;
+    background: rgba(34,197,94,.08);
+    color: #4ade80;
+    font-size: 9px;
+    font-weight: 800;
+}
+
+@media (max-width:1100px) {
+    .dashboard-stats {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width:800px) {
+    .dashboard-page {
+        display: block;
+    }
+
+    .dashboard-sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,.06);
+        padding: 12px;
+        display: flex;
+        overflow-x: auto;
+        gap: 5px;
+    }
+
+    .sidebar-section-title,
+    .sidebar-divider {
+        display: none;
+    }
+
+    .sidebar-link {
+        margin: 0;
+        white-space: nowrap;
+    }
+
+    .dashboard-main {
+        padding: 25px 10px 40px;
+    }
+}
+
+@media (max-width:600px) {
+    .dashboard-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-button {
+        display: none;
+    }
+
+    .welcome-title {
+        font-size: 22px;
+    }
+
+    .product-table {
+        min-width: 600px;
+    }
+
+    .products-card {
+        overflow-x: auto;
+    }
+}
+
+</style>
+
+<div class="dashboard-page">
+
+```
+<aside class="dashboard-sidebar">
+
+    <div class="sidebar-section-title">
+        MAIN MENU
+    </div>
+
+    <a href="/dashboard" class="sidebar-link active">
+        <div class="sidebar-icon">D</div>
+        Dashboard
+    </a>
+
+    <a href="/products" class="sidebar-link">
+        <div class="sidebar-icon">P</div>
+        Products
+    </a>
+
+    <a href="#" class="sidebar-link">
+        <div class="sidebar-icon">A</div>
+        Price Analytics
+    </a>
+
+    <a href="#" class="sidebar-link">
+        <div class="sidebar-icon">!</div>
+        Alerts
+    </a>
+
+    <a href="#" class="sidebar-link">
+        <div class="sidebar-icon">W</div>
+        Watchlist
+    </a>
+
+    <div class="sidebar-divider"></div>
+
+    <div class="sidebar-section-title">
+        ACCOUNT
+    </div>
+
+    <a href="#" class="sidebar-link">
+        <div class="sidebar-icon">S</div>
+        Settings
+    </a>
+
+    <a href="#" class="sidebar-link">
+        <div class="sidebar-icon">U</div>
+        Profile
+    </a>
+
+    <a href="/logout" class="sidebar-link">
+        <div class="sidebar-icon">L</div>
+        Logout
+    </a>
+
+</aside>
+
+<main class="dashboard-main">
+
+    <div class="dashboard-topbar">
+
+        <div>
+            <h1 class="welcome-title">
+                Welcome back, {{ user_name }} 
+            </h1>
+
+            <p class="welcome-subtitle">
+                Here's what's happening with your tracked products.
+            </p>
+        </div>
+
+        <div class="dashboard-actions">
+
+            <button class="notification-button">
+                N
+                <span class="notification-dot"></span>
+            </button>
+
+            <div class="profile-button">
+                <span class="profile-avatar">
+                    {{ user_name[0]|upper }}
+                </span>
+                {{ user_name }}
+            </div>
+
+        </div>
+
+    </div>
+
+    <section class="dashboard-stats">
+
+        <div class="dashboard-stat">
+
+            <div class="stat-top">
+                <div class="stat-icon">P</div>
+                <div class="stat-trend">+12%</div>
+            </div>
+
+            <div class="dashboard-stat-label">
+                Tracked Products
+            </div>
+
+            <div class="dashboard-stat-value">
+                12
+            </div>
+
+        </div>
+
+        <div class="dashboard-stat">
+
+            <div class="stat-top">
+                <div class="stat-icon">↓</div>
+                <div class="stat-trend">+4</div>
+            </div>
+
+            <div class="dashboard-stat-label">
+                Price Drops
+            </div>
+
+            <div class="dashboard-stat-value">
+                04
+            </div>
+
+        </div>
+
+        <div class="dashboard-stat">
+
+            <div class="stat-top">
+                <div class="stat-icon">₹</div>
+                <div class="stat-trend">+8.5%</div>
+            </div>
+
+            <div class="dashboard-stat-label">
+                Average Savings
+            </div>
+
+            <div class="dashboard-stat-value">
+                ₹4,250
+            </div>
+
+        </div>
+
+        <div class="dashboard-stat">
+
+            <div class="stat-top">
+                <div class="stat-icon">!</div>
+                <div class="stat-trend">Active</div>
+            </div>
+
+            <div class="dashboard-stat-label">
+                Active Alerts
+            </div>
+
+            <div class="dashboard-stat-value">
+                07
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="dashboard-grid">
+
+        <div class="dashboard-card">
+
+            <div class="card-header">
+
+                <h3>
+                    Price Analytics
+                </h3>
+
+                <span>
+                    Last 30 Days
+                </span>
+
+            </div>
+
+            <div class="analytics-chart">
+
+                <div class="analytics-grid"></div>
+
+                <svg
+                    class="analytics-svg"
+                    viewBox="0 0 700 260"
+                    preserveAspectRatio="none"
+                >
+
+                    <defs>
+
+                        <linearGradient
+                            id="dashboardGradient"
+                            x1="0"
+                            y1="0"
+                            x2="0"
+                            y2="1"
+                        >
+
+                            <stop
+                                offset="0%"
+                                stop-color="#22d3ee"
+                            />
+
+                            <stop
+                                offset="100%"
+                                stop-color="#22d3ee"
+                                stop-opacity="0"
+                            />
+
+                        </linearGradient>
+
+                    </defs>
+
+                    <path
+                        class="analytics-area"
+                        d="M0,190 C60,180 90,145 140,160 C190,175 220,125 270,135 C320,145 350,95 400,115 C450,135 480,80 530,92 C580,104 620,55 700,65 L700,260 L0,260 Z"
+                    />
+
+                    <path
+                        class="analytics-line"
+                        d="M0,190 C60,180 90,145 140,160 C190,175 220,125 270,135 C320,145 350,95 400,115 C450,135 480,80 530,92 C580,104 620,55 700,65"
+                    />
+
+                </svg>
+
+            </div>
+
+        </div>
+
+        <div class="dashboard-card">
+
+            <div class="card-header">
+
+                <h3>
+                    Smart Insights
+                </h3>
+
+                <span>
+                    AI Powered
+                </span>
+
+            </div>
+
+            <div class="insight">
+
+                <div class="insight-label">
+                    PRICE TREND
+                </div>
+
+                <div class="insight-value positive">
+                    Falling
+                </div>
+
+                <div class="insight-description">
+                    Current prices are trending lower than the previous 7 days.
+                </div>
+
+            </div>
+
+            <div class="insight">
+
+                <div class="insight-label">
+                    BEST DEAL
+                </div>
+
+                <div class="insight-value cyan">
+                    12.5% Below Average
+                </div>
+
+                <div class="insight-description">
+                    One of your tracked products is currently at a strong deal price.
+                </div>
+
+            </div>
+
+            <div class="insight">
+
+                <div class="insight-label">
+                    BUY SIGNAL
+                </div>
+
+                <div class="insight-value purple">
+                    High Confidence
+                </div>
+
+                <div class="insight-description">
+                    Current market conditions suggest this may be a good time to buy.
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="dashboard-card products-card">
+
+        <div class="card-header">
+
+            <h3>
+                Recently Tracked Products
+            </h3>
+
+            <a
+                href="/products"
+                style="color:#64748b;text-decoration:none;font-size:10px;"
+            >
+                View All →
+            </a>
+
+        </div>
+
+        <table class="product-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Product</th>
+                    <th>Current Price</th>
+                    <th>Target Price</th>
+                    <th>Change</th>
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+
+                    <td>
+
+                        <div class="table-product">
+
+                            <div class="table-product-icon">
+                                L
+                            </div>
+
+                            <div>
+
+                                <div class="table-product-name">
+                                    Premium Laptop
+                                </div>
+
+                                <div class="table-product-category">
+                                    Electronics
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+                    <td class="price-current">
+                        ₹55,999
+                    </td>
+
+                    <td class="price-target">
+                        ₹49,999
+                    </td>
+
+                    <td class="price-drop">
+                        ↓ 8.4%
+                    </td>
+
+                    <td>
+
+                        <span class="tracking-badge">
+                            TRACKING
+                        </span>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <div class="table-product">
+
+                            <div class="table-product-icon">
+                                P
+                            </div>
+
+                            <div>
+
+                                <div class="table-product-name">
+                                    Wireless Headphones
+                                </div>
+
+                                <div class="table-product-category">
+                                    Electronics
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+                    <td class="price-current">
+                        ₹4,299
+                    </td>
+
+                    <td class="price-target">
+                        ₹3,999
+                    </td>
+
+                    <td class="price-drop">
+                        ↓ 5.2%
+                    </td>
+
+                    <td>
+
+                        <span class="tracking-badge">
+                            TRACKING
+                        </span>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <div class="table-product">
+
+                            <div class="table-product-icon">
+                                S
+                            </div>
+
+                            <div>
+
+                                <div class="table-product-name">
+                                    Smart Watch
+                                </div>
+
+                                <div class="table-product-category">
+                                    Wearables
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+                    <td class="price-current">
+                        ₹7,999
+                    </td>
+
+                    <td class="price-target">
+                        ₹6,999
+                    </td>
+
+                    <td class="price-drop">
+                        ↓ 10.1%
+                    </td>
+
+                    <td>
+
+                        <span class="tracking-badge">
+                            TRACKING
+                        </span>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+</main>
+```
+
+</div>
+
+{% endblock %}
